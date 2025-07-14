@@ -2,8 +2,9 @@ require 'Win32API'
 
 # number of abilities to display in the tracker
 TRACKER_SIZE=14
-# html file refresh speed in metadata
-AUTO_REFRESH=false
+# html file refresh in metadata
+AUTO_REFRESH=true
+# auto refresh interval in metadata (1 == 1 second)
 TRACKER_UPDATE_INTERVAL=1
 # how frequently the html file is updated 1 second == 100
 #0 will update whenever there is a valid input
@@ -179,7 +180,8 @@ $action_array.append(Action.new("essence of finality amulet","u",NONE,"Essence o
 $action_array.append(Action.new("pernix quiver blue","r",NONE,"Pernix's quiver (blue).png",RANGED_S))
 $action_array.append(Action.new("pernix quiver red","h",NONE,"Pernix's quiver (red).png",RANGED_S))
 $action_array.append(Action.new("shadow tendrils","k",NONE,"Shadow_Tendrils.png",RANGED_S))
-$action_array.append(Action.new("arcane spirit shield","x",NONE,"arcane_spirit_shield.png",RANGED_S))
+#$action_array.append(Action.new("arcane spirit shield","x",NONE,"arcane_spirit_shield.png",RANGED_S))
+$action_array.append(Action.new("smoke cloud","x",NONE,"Smoke Cloud icon.png",RANGED_S))
 #$action_array.append(Action.new("ode to deceit","f3",NONE,"Ode_to_Deceit.png",RANGED_S))
 $action_array.append(Action.new("erethdor's grimoire","f3",NONE,"Erethdor's grimoire.png",RANGED_S))
 $action_array.append(Action.new("roar of awakening","f",NONE,"Roar_of_Awakening.png",RANGED_2H))
@@ -218,6 +220,7 @@ $action_array.append(Action.new("tsunami","h",NONE,"Tsunami.png",MAGIC_S))
 $action_array.append(Action.new("detonate","u",NONE,"Detonate.png",MAGIC_S))
 $action_array.append(Action.new("smoke tendrils","k",NONE,"Smoke Tendrils.png",MAGIC_S))
 $action_array.append(Action.new("arcane spirit shield","x",NONE,"arcane_spirit_shield.png",MAGIC_S))
+#$action_array.append(Action.new("smoke cloud","x",NONE,"Smoke Cloud icon.png",MAGIC_S))
 $action_array.append(Action.new("flank orb","f3",NONE,"Imperium core.png",MAGIC_S))
 $action_array.append(Action.new("bolg","o",NONE,"Bow of the Last Guardian.png",MAGIC_S))
 $action_array.append(Action.new("affliction","\t",NONE,"Affliction.png",MAGIC_S))
@@ -259,7 +262,6 @@ $action_array.append(Action.new("life transfer","o",NONE,"Life_Transfer_icon.png
 $action_array.append(Action.new("ruination","\t",NONE,"Ruination.png",NECROMANCY_S))
 $action_array.append(Action.new("death guard","f4",NONE,"Death guard (tier 90).png",NECROMANCY_S))
 $action_array.append(Action.new("essence of finality amulet","p",NONE,"Essence of Finality amulet.png",NECROMANCY_S))
-
 # melee primary action bar
 $action_array.append(Action.new("","f1",NONE,"Backhand.png",MELEE_DW))
 $action_array.append(Action.new("","f2",NONE,"Forceful_Backhand.png",MELEE_DW))
@@ -274,22 +276,23 @@ $action_array.append(Action.new("","6",NONE,"Quake.png",MELEE_DW))
 $action_array.append(Action.new("","7",NONE,"Slaughter.png",MELEE_DW))
 $action_array.append(Action.new("","8",NONE,"Dismember.png",MELEE_DW))
 $action_array.append(Action.new("","9",NONE,"Overpower.png",MELEE_DW))
-$action_array.append(Action.new("","0",NONE,"Assault.png",MELEE_DW))
+$action_array.append(Action.new("","0",NONE,"Essence of Finality amulet.png",MELEE_DW))
 # melee secondary action bar 1
 $action_array.append(Action.new("","a",NONE,"Ek-ZekKil.webp",MELEE_S))
 $action_array.append(Action.new("","w",NONE,"Dark_Shard_of_Leng.webp",MELEE_S))
 $action_array.append(Action.new("","e",NONE,"Dark_Sliver_of_Leng.webp",MELEE_S))
-#$action_array.append(Action.new("","f",NONE,".png",MELEE_S))
+$action_array.append(Action.new("","f",NONE,"Assault.png",MELEE_S))
 $action_array.append(Action.new("","r",NONE,"Greater_Barge.png",MELEE_S))
 $action_array.append(Action.new("","h",NONE,"Chaos_Roar.png",MELEE_S))
-$action_array.append(Action.new("essence of finality amulet","u",NONE,"Essence of Finality amulet.png",MELEE_S))
+$action_array.append(Action.new("","u",NONE,"Punish.png",MELEE_S))
 $action_array.append(Action.new("","k",NONE,"Blood_Tendrils.png",MELEE_S))
-$action_array.append(Action.new("","x",NONE,"Divine_spirit_shield.png",MELEE_S))
+#$action_array.append(Action.new("","x",NONE,"Divine_spirit_shield.png",MELEE_S))
+$action_array.append(Action.new("smoke cloud","x",NONE,"Smoke Cloud icon.png",MELEE_S))
 $action_array.append(Action.new("","f3",NONE,"Dark_Sliver_of_Leng_(Barrows).webp",MELEE_S))
 $action_array.append(Action.new("essence of finality amulet","o",NONE,"Essence of Finality amulet.png",MELEE_S))
 $action_array.append(Action.new("","\t",NONE,"Malevolence.webp",MELEE_S))
 $action_array.append(Action.new("","f4",NONE,"Masterwork_Spear_of_Annihilation.webp",MELEE_S))
-$action_array.append(Action.new("","p",NONE,"Punish.png",MELEE_S))
+$action_array.append(Action.new("","p",NONE,"Pulverise.png",MELEE_S))
 # secondary action bar 2
 $action_array.append(Action.new("preparation","c",SHIFT,"Preparation.png"))
 $action_array.append(Action.new("divert","v",SHIFT,"Divert.png"))
@@ -305,9 +308,12 @@ $action_array.append(Action.new("smoke cloud","3",SHIFT,"Smoke Cloud icon.png"))
 $action_array.append(Action.new("shield dome","x",SHIFT,"Shield Dome icon.png"))
 $action_array.append(Action.new("provoke","f",CTRL,"Provoke.png"))
 $action_array.append(Action.new("essence of finality","f5",NONE,"Essence of Finality.png"))
-$action_array.append(Action.new("shatter","h",SHIFT,"Shatter.png"))
-$action_array.append(Action.new("storm shards","u",SHIFT,"Storm Shards.png"))
-$action_array.append(Action.new("erethdor's grimoire","k",SHIFT,"Erethdor's grimoire.png"))
+#$action_array.append(Action.new("shatter","h",SHIFT,"Shatter.png"))
+#$action_array.append(Action.new("storm shards","u",SHIFT,"Storm Shards.png"))
+#$action_array.append(Action.new("erethdor's grimoire","k",SHIFT,"Erethdor's grimoire.png"))
+$action_array.append(Action.new("","h",SHIFT,"Ek-ZekKil.webp"))	
+$action_array.append(Action.new("","u",SHIFT,"Eldritch_crossbow.png"))
+$action_array.append(Action.new("","k",SHIFT,"Fractured Staff of Armadyl.png"))
 # secondary action bar 3
 #$action_array.append(Action.new("blessed flask","g",NONE,"Blessed flask.png"))
 $action_array.append(Action.new("super restore","g",NONE,"Super_restore_(4).png"))
@@ -319,14 +325,14 @@ $action_array.append(Action.new("super guthix brew","y",NONE,"Super_Guthix_brew_
 $action_array.append(Action.new("vulnerability bomb","r",SHIFT,"Vulnerability bomb.png"))
 $action_array.append(Action.new("spellbook swap lunar","l",SHIFT,"Spellbook Swap (Lunar) icon.png"))
 $action_array.append(Action.new("spellbook swap standard","s",SHIFT,"Spellbook Swap (Standard) icon.png"))
-#$action_array.append(Action.new("entangle","d",SHIFT,"Entangle.png"))
-$action_array.append(Action.new("temporal anomaly","d",SHIFT,"Temporal_Anomaly_icon.webp"))
+$action_array.append(Action.new("entangle","d",SHIFT,"Entangle.png"))
+#$action_array.append(Action.new("temporal anomaly","d",SHIFT,"Temporal_Anomaly_icon.webp"))
 $action_array.append(Action.new("enfeeble","f",SHIFT,"Enfeeble icon.png"))
 $action_array.append(Action.new("fortitude","\t",SHIFT,"Fortitude.png"))
-$action_array.append(Action.new("deflect ranged","q",NONE,"Deflect Ranged.png"))
-$action_array.append(Action.new("deflect magic","s",NONE,"Deflect Magic.png"))
-$action_array.append(Action.new("deflect melee","d",NONE,"Deflect Melee.png"))
-$action_array.append(Action.new("soul split","z",NONE,"Soul Split.png"))
+#$action_array.append(Action.new("deflect ranged","q",NONE,"Deflect Ranged.png"))
+#$action_array.append(Action.new("deflect magic","s",NONE,"Deflect Magic.png"))
+#$action_array.append(Action.new("deflect melee","d",NONE,"Deflect Melee.png"))
+#$action_array.append(Action.new("soul split","z",NONE,"Soul Split.png"))
 # secondary action bar 4
 $action_array.append(Action.new("disruption shield","w",SHIFT,"Disruption Shield icon.png"))
 $action_array.append(Action.new("vengeance","e",SHIFT,"Vengeance Group icon.png"))
